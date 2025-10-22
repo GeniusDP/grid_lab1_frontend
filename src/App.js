@@ -93,7 +93,7 @@ function App() {
     const formatDate = (dateString) => {
         if (!dateString) return null;
         const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        return new Date(dateString).toLocaleDateString('uk-UA', options);
+        return new Date(dateString).toLocaleDateString('en-US', options);
     };
 
     return (
