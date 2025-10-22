@@ -1,13 +1,101 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #ffebee;
+    font-weight: 400;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.App {
+    font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
+}
+
+.note-card {
+    background-color: #fffde7;
+    border-radius: 4px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease-in-out;
+}
+
+.note-card:nth-child(even) {
+    transform: rotate(1.5deg);
+}
+
+.note-card:nth-child(odd) {
+    transform: rotate(-1.5deg);
+}
+
+.note-card:hover {
+    transform: translateY(-5px) scale(1.03) rotate(0deg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.navbar-custom {
+    background-color: #ffa726;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.navbar-custom .navbar-brand {
+    color: #212529;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* --- Стилі для зеленої кнопки --- */
+.navbar-custom .btn-outline-green {
+    color: #1b5e20;
+    border-color: #1b5e20;
+    font-weight: 700;
+    font-size: 1.25rem;
+    border-radius: 50px; /* Ось зміна форми */
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+}
+
+.navbar-custom .btn-outline-green:hover {
+    color: #ffffff;
+    background-color: #2e7d32;
+    border-color: #2e7d32;
+}
+
+
+.btn {
+    border-radius: 8px;
+}
+
+.modal-content {
+    border-radius: 12px;
+}
+
+.card-title {
+    font-weight: 700;
+}
+
+.modal-body .form-control {
+    border: none;
+    border-bottom: 2px solid #ced4da;
+    border-radius: 0;
+    box-shadow: none !important;
+    background-color: transparent;
+}
+
+.modal-body .form-control.textarea-notepad {
+    background-image: linear-gradient(#f1f1f1 1px, transparent 1px);
+    background-size: 100% 1.5rem;
+    line-height: 1.5rem;
+    border-bottom: 2px solid #ced4da;
+}
+
+.modal-body .form-control:focus {
+    border-bottom: 2px solid #ffa726;
+}
+
+.modal-body .form-label {
+    font-weight: 700;
+    color: #495057;
 }
