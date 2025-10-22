@@ -14,8 +14,7 @@ import {
     ToastContainer
 } from 'react-bootstrap';
 
-const JSON_PLACEHOLDER_API_URL = 'https://jsonplaceholder.typicode.com/posts';
-const CUSTOM_API_URL = 'http://localhost:5000/api/notes';
+const CUSTOM_API_URL = 'https://gridlab1-341943604061.europe-west1.run.app/notes';
 
 function App() {
     const [notes, setNotes] = useState([]);
@@ -46,8 +45,8 @@ function App() {
     const fetchNotes = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(`${JSON_PLACEHOLDER_API_URL}?_limit=4`);
-            setNotes(response.data.reverse());
+            const response = await axios.get(CUSTOM_API_URL);
+            setNotes(response.data);
         } catch (error) {
             console.error("Error fetching notes:", error);
         } finally {
@@ -57,14 +56,13 @@ function App() {
 
     const handleSaveNote = async () => {
         if (newNoteTitle.trim() === "" || newNoteBody.trim() === "") {
-            alert("Title and body are required.");
+            alert("Title and text are required.");
             return;
         }
         try {
-            const response = await axios.post(JSON_PLACEHOLDER_API_URL, {
-                title: newNoteTitle,
-                body: newNoteBody,
-                userId: 1,
+            const response = await axios.post(CUSTOM_API_URL, {
+                Title: newNoteTitle,
+                Text: newNoteBody
             });
             setNotes([response.data, ...notes]);
             handleCloseModal();
@@ -77,10 +75,9 @@ function App() {
 
     const confirmDelete = async () => {
         if (!noteToDelete) return;
-
         try {
-            await axios.delete(`${JSON_PLACEHOLDER_API_URL}/${noteToDelete}`);
-            setNotes(notes.filter(note => note.id !== noteToDelete));
+            await axios.delete(`${CUSTOM_API_URL}/${noteToDelete}`);
+            setNotes(notes.filter(note => note._id !== noteToDelete));
             setShowToast(true);
         } catch (error) {
             console.error("Error deleting note:", error);
@@ -88,50 +85,6 @@ function App() {
             handleCloseDeleteConfirm();
         }
     };
-
-    // const fetchNotes = async () => {
-    //   try {
-    //     setLoading(true);
-    //     const response = await axios.get(CUSTOM_API_URL);
-    //     setNotes(response.data);
-    //   } catch (error) {
-    //     console.error("Error fetching notes:", error);
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
-
-    // const handleSaveNote = async () => {
-    //   if (newNoteTitle.trim() === "" || newNoteBody.trim() === "") {
-    //     alert("Title and text are required.");
-    //     return;
-    //   }
-    //   try {
-    //     await axios.post(CUSTOM_API_URL, {
-    //       title: newNoteTitle,
-    //       text: newNoteBody
-    //     });
-    //     handleCloseModal();
-    //     setNewNoteTitle("");
-    //     setNewNoteBody("");
-    //     fetchNotes();
-    //   } catch (error) {
-    //     console.error("Error adding note:", error);
-    //   }
-    // };
-
-    // const confirmDelete = async () => {
-    //   if (!noteToDelete) return;
-    //   try {
-    //     await axios.delete(`${CUSTOM_API_URL}/${noteToDelete}`);
-    //     fetchNotes();
-    //     setShowToast(true);
-    //   } catch (error) {
-    //     console.error("Error deleting note:", error);
-    //   } finally {
-    //     handleCloseDeleteConfirm();
-    //   }
-    // };
 
     useEffect(() => {
         fetchNotes();
@@ -163,25 +116,22 @@ function App() {
                 ) : (
                     <Row xs={1} md={2} lg={3} className="g-4">
                         {notes.map((note) => (
-                            <Col key={note.id || note._id}>
+                            <Col key={note._id}>
                                 <Card className="note-card h-100">
                                     <Card.Body>
-                                        <Card.Title>{note.title}</Card.Title>
+                                        <Card.Title>{note.Title}</Card.Title>
                                         <Card.Text style={{ whiteSpace: 'pre-wrap' }}>
-                                            {note.body || note.text}
+                                            {note.Text}
                                         </Card.Text>
                                     </Card.Body>
                                     <Card.Footer className="d-flex justify-content-between align-items-center">
                                         <small className="text-muted">
-                                            {note.createdAt
-                                                ? formatDate(note.createdAt)
-                                                : `Post ID: ${note.id}`
-                                            }
+                                            {formatDate(note.CreatedAt)}
                                         </small>
                                         <Button
                                             variant="outline-danger"
                                             size="sm"
-                                            onClick={() => handleShowDeleteConfirm(note.id || note._id)}
+                                            onClick={() => handleShowDeleteConfirm(note._id)}
                                         >
                                             Delete
                                         </Button>
