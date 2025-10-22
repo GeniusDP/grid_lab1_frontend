@@ -46,7 +46,7 @@ function App() {
     const fetchNotes = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(`${JSON_PLACEHOLDER_API_URL}?_limit=0`);
+            const response = await axios.get(`${JSON_PLACEHOLDER_API_URL}?_limit=9`);
             setNotes(response.data.reverse());
         } catch (error) {
             console.error("Error fetching notes:", error);
