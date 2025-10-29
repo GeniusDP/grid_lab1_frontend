@@ -18,10 +18,28 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image
+      # --- Завдання 1: Збірка образу для Lab 1 (Vercel/Cloud Run) ---
+      - name: Build and push Lab 1 image
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/grid_lab1_frontend:latest
+          # 1. Вказуємо тег образу
+          tags: ${{ secrets.DOCKER_USERNAME }}/grid_lab1_frontend:lab1
+          # 2. Передаємо build-arg для Lab 1 (зовнішній URL)
+          build-args: |
+            REACT_APP_API_URL=https://gridlab1-341943604061.europe-west1.run.app/notes
+
+      # --- Завдання 2: Збірка образу для Lab 2 (VM/Docker Compose) ---
+      - name: Build and push Lab 2 image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          # 1. Вказуємо інший тег
+          tags: ${{ secrets.DOCKER_USERNAME }}/grid_lab1_frontend:lab2
+          # 2. Передаємо build-arg для Lab 2 (відносний шлях для Nginx proxy)
+          build-args: |
+            REACT_APP_API_URL=/notes

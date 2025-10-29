@@ -14,7 +14,7 @@ import {
     ToastContainer
 } from 'react-bootstrap';
 
-const CUSTOM_API_URL = 'https://gridlab1-341943604061.europe-west1.run.app/notes';
+const CUSTOM_API_URL = process.env.REACT_APP_API_URL || 'https://gridlab1-341943604061.europe-west1.run.app/notes';
 
 function App() {
     const [notes, setNotes] = useState([]);
